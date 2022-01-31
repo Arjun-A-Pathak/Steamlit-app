@@ -1,15 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import numpy as np
 import cv2
 import streamlit as st
 from tensorflow import keras
-from keras.models import load_model
-from ipykernel import kernelapp as app
 from keras.models import model_from_json
 from keras.preprocessing.image import img_to_array
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase, RTCConfiguration, VideoProcessorBase, WebRtcMode
@@ -17,14 +9,14 @@ from streamlit_webrtc import webrtc_streamer, VideoTransformerBase, RTCConfigura
 # load model
 emotion_dict = {0:'angry', 1 :'happy', 2: 'neutral', 3:'sad', 4: 'surprise'}
 # load json and create model
-json_file = open('fer_model.json', 'r')
+json_file = open('emotion_model1.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 classifier = model_from_json(loaded_model_json)
 
 # load weights into new model
 
-classifier.load_weights("fer_model.h5")
+classifier.load_weights("emotion_model1.h5")
 
 #load face
 try:
@@ -112,10 +104,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# In[ ]:
-
-
-
-
