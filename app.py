@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[6]:
+# In[10]:
 
 
 import pandas as pd
@@ -16,18 +16,22 @@ from keras.preprocessing.image import img_to_array
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase, RTCConfiguration, VideoProcessorBase, WebRtcMode
 
 
-# In[7]:
+# In[11]:
 
 
-from tensorflow.keras.models import model_from_json
-# load model
 emotion_dict = {0:'angry', 1 :'happy', 2: 'neutral', 3:'sad', 4: 'surprise'}
+# load json and create model
+json_file = open('fer_model.json', 'r')
+loaded_model_json = json_file.read()
+json_file.close()
+classifier = model_from_json(loaded_model_json)
 
-classifier = model_from_json(open("fer_model.json", "r").read())
-classifier.load_weights('fer_model.h5')
+# load weights into new model
+
+classifier.load_weights("fer_model.h5")
 
 
-# In[8]:
+# In[12]:
 
 
 #load face
@@ -65,7 +69,7 @@ class Faceemotion(VideoTransformerBase):
         return img
 
 
-# In[9]:
+# In[13]:
 
 
 def main():
@@ -123,6 +127,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
