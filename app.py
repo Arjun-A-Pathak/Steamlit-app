@@ -1,22 +1,34 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[5]:
+
+
+import pandas as pd
 import numpy as np
 import cv2
 import streamlit as st
+from keras.models import load_model
+from ipykernel import kernelapp as app
 from tensorflow import keras
 from keras.models import model_from_json
 from keras.preprocessing.image import img_to_array
 from streamlit_webrtc import webrtc_streamer, VideoTransformerBase, RTCConfiguration, VideoProcessorBase, WebRtcMode
 
+
+# In[6]:
+
+
+from tensorflow.keras.models import model_from_json
 # load model
 emotion_dict = {0:'angry', 1 :'happy', 2: 'neutral', 3:'sad', 4: 'surprise'}
-# load json and create model
-json_file = open('emotion_model1.json', 'r')
-loaded_model_json = json_file.read()
-json_file.close()
-classifier = model_from_json(loaded_model_json)
 
-# load weights into new model
+saved_model = model_from_json(open("fer_model.json", "r").read())
+saved_model.load_weights('fer_model.h5')
 
-classifier.load_weights("emotion_model1.h5")
+
+# In[7]:
+
 
 #load face
 try:
@@ -52,15 +64,19 @@ class Faceemotion(VideoTransformerBase):
 
         return img
 
+
+# In[8]:
+
+
 def main():
     # Face Analysis Application #
     st.title("Real Time Face Emotion Detection Application")
     activiteis = ["Home", "Webcam Face Detection", "About"]
     choice = st.sidebar.selectbox("Select Activity", activiteis)
     st.sidebar.markdown(
-        """ Developed by Mohammad Juned Khan    
-            Email : Mohammad.juned.z.khan@gmail.com  
-            [LinkedIn] (https://www.linkedin.com/in/md-juned-khan)""")
+        """ Developed by ARJUN PATHAK  
+            Email : arjunpathak2018@gmail.com  
+            [LinkedIn] (www.linkedin.com/in/arjun-pathak-40575614a)""")
     if choice == "Home":
         html_temp_home1 = """<div style="background-color:#6D7B8D;padding:10px">
                                             <h4 style="color:white;text-align:center;">
@@ -70,8 +86,11 @@ def main():
         st.markdown(html_temp_home1, unsafe_allow_html=True)
         st.write("""
                  The application has two functionalities.
+
                  1. Real time face detection using web cam feed.
+
                  2. Real time face emotion recognization.
+
                  """)
     elif choice == "Webcam Face Detection":
         st.header("Webcam Live Feed")
@@ -90,7 +109,7 @@ def main():
 
         html_temp4 = """
                              		<div style="background-color:#98AFC7;padding:10px">
-                             		<h4 style="color:white;text-align:center;">This Application is developed by Mohammad Juned Khan using Streamlit Framework, Opencv, Tensorflow and Keras library for demonstration purpose. If you're on LinkedIn and want to connect, just click on the link in sidebar and shoot me a request. If you have any suggestion or wnat to comment just write a mail at Mohammad.juned.z.khan@gmail.com. </h4>
+                             		<h4 style="color:white;text-align:center;">This Application is developed by ARJUN PATHAK using Streamlit Framework, Opencv, Tensorflow and Keras library for demonstration purpose. If you're on LinkedIn and want to connect, just click on the link in sidebar and shoot me a request. If you have any suggestion or wnat to comment just write a mail at arjunpathak2018@gmail.com. </h4>
                              		<h4 style="color:white;text-align:center;">Thanks for Visiting</h4>
                              		</div>
                              		<br></br>
@@ -104,3 +123,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# In[ ]:
+
+
+
+
