@@ -1,0 +1,15 @@
+numpy
+streamlit
+keras
+opencv-contrib-python-headless
+tensorflow-cpu
+streamlit_webrtc
+opencv-contrib-python-headless
+opencv-python
+tensorflow-cpu
+streamlit_webrtc
+scikit-learn
+matplotlib
+ipython
+deepface
+ipykernel
